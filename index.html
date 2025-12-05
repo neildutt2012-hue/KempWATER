@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Word Blast - NeuroBoost</title>
 <style>
-/* --- Body and Header --- */
 body {
   margin:0;
   font-family:'Arial',sans-serif;
-  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  background: linear-gradient(to bottom, #a3d9ff, #ffffff);
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -18,45 +17,58 @@ body {
 }
 header{text-align:center;padding:30px 20px 10px;}
 header h1{
-  font-size:3em;
-  background: linear-gradient(90deg,#ff9a9e,#fad0c4,#a1c4fd);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  font-size:2.8em;
+  color:#0077cc;
 }
 header p{font-size:1.2em;color:#555;}
 
-/* --- Game Container --- */
 .game-container{
-  background:#fff;
+  background:#ffffff;
   border-radius:20px;
   padding:25px;
   width:95%;
-  max-width:650px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  max-width:600px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
   text-align:center;
-  position:relative;
 }
-h2{color:#ff6f61;margin-bottom:10px;font-family:'Comic Sans MS',cursive;}
-#score,#level,#timer,#highscore{font-size:1.2em;margin:5px 0;}
+h2{color:#0077cc;margin-bottom:15px;font-family:'Arial',sans-serif;}
+
+#score,#level,#timer,#highscore{
+  font-size:1.1em;
+  margin:4px 0;
+}
+
 #letters-container{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   margin:20px 0;
 }
+
 .letter-tile{
-  width:60px;height:60px;margin:5px;
+  width:70px;
+  height:70px;
+  margin:5px;
   display:flex;justify-content:center;align-items:center;
-  font-size:2em;font-weight:bold;
-  background:#fcd5ce;
-  border-radius:12px;
+  font-size:2em;
+  font-weight:bold;
+  background:#f0f0f0;
+  border-radius:50%;
   cursor:pointer;
-  transition:0.3s, transform 0.2s;
+  transition:0.3s;
   user-select:none;
-  position:relative;
+  box-shadow:0 3px 5px rgba(0,0,0,0.2);
 }
-.letter-tile:hover{transform:scale(1.15) rotate(-2deg); box-shadow:0 0 10px rgba(0,0,0,0.2);}
-.letter-tile.selected{background:#ff6f61;color:#fff;transform:scale(1.3);}
+.letter-tile:hover{
+  transform:scale(1.1);
+  background:#cce5ff;
+}
+.letter-tile.selected{
+  background:#0077cc;
+  color:#fff;
+  transform:scale(1.2);
+}
+
 #current-word{
   font-size:1.5em;
   padding:10px;width:80%;margin-bottom:10px;
@@ -65,48 +77,29 @@ h2{color:#ff6f61;margin-bottom:10px;font-family:'Comic Sans MS',cursive;}
 }
 #submit-word{
   padding:10px 25px;font-size:1.2em;margin-bottom:15px;
-  background:#ff6f61;border:none;border-radius:12px;
+  background:#0077cc;border:none;border-radius:12px;
   cursor:pointer;transition:0.3s;color:#fff;
 }
-#submit-word:hover{background:#ff3b2f;}
-#found-words{min-height:60px;margin-top:15px;color:#555;font-size:1.1em;position:relative;}
+#submit-word:hover{background:#005fa3;}
 
-/* --- Game Mode Selector --- */
-#mode-selector{margin-bottom:15px;}
-.mode-btn{padding:8px 15px;margin:3px;border:none;border-radius:10px;cursor:pointer;transition:0.3s;background:#00c3ff;color:#fff;}
-.mode-btn.active{background:#ff6f61;color:#fff;}
-.mode-btn:hover{opacity:0.8;}
-
-/* --- Particle Effects --- */
-.particle{
-  position:absolute;
-  width:8px;height:8px;
-  border-radius:50%;
-  background: #ff6f61;
-  pointer-events:none;
-  animation:particleMove 0.8s forwards;
-}
-@keyframes particleMove{
-  0%{opacity:1;transform:translate(0,0) scale(1);}
-  100%{opacity:0;transform:translate(calc(50px - 25px), -50px) scale(0);}
+#found-words{
+  min-height:60px;margin-top:15px;color:#555;font-size:1.1em;
+  display:flex;flex-wrap:wrap;justify-content:center;
 }
 
-/* --- Flying Word --- */
-.fly-word{
-  position:absolute;color:#ff6f61;
-  animation:fly 0.8s ease forwards;font-weight:bold;
-}
-@keyframes fly{
-  0%{transform:translateY(0) scale(1);opacity:1;}
-  100%{transform:translateY(-80px) scale(0);opacity:0;}
+.found-word{
+  background:#cce5ff;
+  margin:3px;
+  padding:5px 10px;
+  border-radius:12px;
+  font-weight:bold;
+  color:#0077cc;
 }
 
-/* --- Footer --- */
 footer{text-align:center;padding:15px;font-size:0.9em;color:#555;}
 
-/* --- Responsive --- */
 @media(max-width:500px){
-  .letter-tile{width:50px;height:50px;font-size:1.5em;}
+  .letter-tile{width:55px;height:55px;font-size:1.5em;}
   #current-word{font-size:1.2em;}
   #submit-word{font-size:1em;}
 }
@@ -115,31 +108,28 @@ footer{text-align:center;padding:15px;font-size:0.9em;color:#555;}
 <body>
 
 <header>
-<h1>NeuroBoost</h1>
-<p>Word Blast — Fun, Fast & Brain-Boosting!</p>
+<h1>Word Blast</h1>
+<p>NeuroBoost — Fun Brain-Boosting Game!</p>
 </header>
 
 <div class="game-container">
-<h2>Word Blast</h2>
-<div id="mode-selector">
-<button class="mode-btn active" data-mode="classic">Classic</button>
-<button class="mode-btn" data-mode="timed">Timed</button>
-<button class="mode-btn" data-mode="endless">Endless</button>
-</div>
+<h2>Level <span id="level">1</span></h2>
 <div id="score">Score: 0</div>
 <div id="highscore">High Score: 0</div>
-<div id="level">Level: 1</div>
 <div id="timer">Time: 60s</div>
+
 <div id="letters-container"></div>
+
 <input type="text" id="current-word" placeholder="Form a word..." readonly>
-<button id="submit-word">Submit Word</button>
+<button id="submit-word">Submit</button>
+
 <div id="found-words"></div>
 </div>
 
-<footer>&copy; 2025 NeuroBoost. All rights reserved.</footer>
+<footer>&copy; 2025 NeuroBoost</footer>
 
 <script>
-// --- Variables ---
+// --- Game Variables ---
 const lettersContainer=document.getElementById('letters-container');
 const currentWordInput=document.getElementById('current-word');
 const submitButton=document.getElementById('submit-word');
@@ -148,44 +138,44 @@ const scoreDisplay=document.getElementById('score');
 const levelDisplay=document.getElementById('level');
 const timerDisplay=document.getElementById('timer');
 const highscoreDisplay=document.getElementById('highscore');
-const modeButtons=document.querySelectorAll('.mode-btn');
 
-let letters=[],currentWord='',foundWords=[],score=0,level=1,time=60,streak=0;
-let dictionary=[],mode='classic',timerInterval=null;
+let letters=[],currentWord='',foundWords=[],score=0,level=1,time=60;
+let dictionary=[],timerInterval=null;
 
 // Highscore
 let highscore=localStorage.getItem('wordblastHighscore')||0;
 highscoreDisplay.textContent=`High Score: ${highscore}`;
 
-// Load dictionary
+// Load dictionary (small version first for testing)
 async function loadDictionary(){
     timerDisplay.textContent='Loading dictionary...';
-    const response=await fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt');
-    const text=await response.text();
-    dictionary=text.split('\n').map(w=>w.toUpperCase());
-    timerDisplay.textContent=`Time: ${time}s`;
-    startGame();
+    try{
+        const response=await fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt');
+        const text=await response.text();
+        dictionary=text.split('\n').map(w=>w.toUpperCase());
+        console.log('Dictionary loaded, words:', dictionary.length);
+        timerDisplay.textContent=`Time: ${time}s`;
+        startGame();
+    } catch(e){
+        alert('Failed to load dictionary.');
+        console.error(e);
+    }
 }
 
-// --- Sounds ---
-const clickSound=new Audio('https://freesound.org/data/previews/256/256113_3263906-lq.mp3');
-const correctSound=new Audio('https://freesound.org/data/previews/331/331912_3248244-lq.mp3');
-const invalidSound=new Audio('https://freesound.org/data/previews/170/170847_2437358-lq.mp3');
-
-// --- Functions ---
+// --- Game Functions ---
 function startGame(){generateLetters(); startTimer();}
+
 function startTimer(){
     clearInterval(timerInterval);
-    if(mode==='endless'){timerDisplay.textContent='∞'; return;}
     timerInterval=setInterval(()=>{
         time--;
         timerDisplay.textContent=`Time: ${time}s`;
-        if(time<=0){clearInterval(timerInterval);gameOver();}
+        if(time<=0){clearInterval(timerInterval); gameOver();}
     },1000);
 }
 
 function gameOver(){
-    alert(`Time's up! Final Score: ${score}`);
+    alert(`Time's up! Score: ${score}`);
     if(score>highscore){localStorage.setItem('wordblastHighscore',score);}
     resetGame();
 }
@@ -198,7 +188,6 @@ function generateLetters(){
         letters.push(letter);
         const tile=document.createElement('div');
         tile.classList.add('letter-tile');
-        tile.style.background=`hsl(${Math.random()*360},70%,80%)`;
         tile.textContent=letter;
         tile.addEventListener('click',()=>selectLetter(letter,tile));
         lettersContainer.appendChild(tile);
@@ -210,74 +199,53 @@ function selectLetter(letter,tile){
     currentWordInput.value=currentWord;
     tile.classList.add('selected');
     tile.style.pointerEvents='none';
-    clickSound.play();
 }
 
-function validateWord(word){return dictionary.includes(word.toUpperCase());}
+function validateWord(word){
+    return dictionary.includes(word.toUpperCase());
+}
 
 submitButton.addEventListener('click',()=>{
     if(currentWord.length<2)return;
     if(!validateWord(currentWord)){
-        streak=0; animateInvalidWord(); invalidSound.play(); resetCurrentWord(); return;
+        currentWordInput.style.backgroundColor='#ffcccc';
+        setTimeout(()=>currentWordInput.style.backgroundColor='#f0f0f0',300);
+        resetCurrentWord();
+        return;
     }
     foundWords.push(currentWord.toUpperCase());
-    foundWordsDiv.innerHTML=foundWords.join(', ');
-    streak++; let bonus=streak>1?streak*5:0;
-    score+=currentWord.length*10+bonus; scoreDisplay.textContent=`Score: ${score}`;
-    correctSound.play(); animateWordSubmit(currentWord); createParticles();
-    if(foundWords.length%5===0){level++; levelDisplay.textContent=`Level: ${level}`;}
-    resetCurrentWord(); generateLetters();
+    const wordSpan=document.createElement('span');
+    wordSpan.textContent=currentWord.toUpperCase();
+    wordSpan.classList.add('found-word');
+    foundWordsDiv.appendChild(wordSpan);
+
+    score += currentWord.length*10;
+    scoreDisplay.textContent=`Score: ${score}`;
+    resetCurrentWord();
+    generateLetters();
+    if(foundWords.length%5===0){level++; levelDisplay.textContent=level;}
     if(score>highscore){highscore=score; highscoreDisplay.textContent=`High Score: ${highscore}`;}
 });
 
-function animateWordSubmit(word){
-    const fly=document.createElement('div'); fly.classList.add('fly-word'); fly.textContent=word.toUpperCase();
-    foundWordsDiv.appendChild(fly); setTimeout(()=>fly.remove(),800);
-}
-
-function animateInvalidWord(){
-    currentWordInput.style.backgroundColor='#ffcccc';
-    setTimeout(()=>currentWordInput.style.backgroundColor='#f0f0f0',300);
-}
-
 function resetCurrentWord(){
     currentWord=''; currentWordInput.value='';
-    document.querySelectorAll('.letter-tile').forEach(tile=>{tile.classList.remove('selected'); tile.style.pointerEvents='auto';});
+    document.querySelectorAll('.letter-tile').forEach(tile=>{
+        tile.classList.remove('selected');
+        tile.style.pointerEvents='auto';
+    });
 }
 
 function resetGame(){
-    score=0; level=1; time=60; foundWords=[]; streak=0;
-    scoreDisplay.textContent=`Score: ${score}`; levelDisplay.textContent=`Level: ${level}`;
-    foundWordsDiv.innerHTML=''; generateLetters(); startTimer();
+    score=0; level=1; time=60; foundWords=[];
+    scoreDisplay.textContent=`Score: ${score}`;
+    levelDisplay.textContent=`Level: ${level}`;
+    foundWordsDiv.innerHTML='';
+    generateLetters(); startTimer();
 }
-
-// --- Particle Effects ---
-function createParticles(){
-    for(let i=0;i<5;i++){
-        const p=document.createElement('div'); p.classList.add('particle');
-        const x=Math.random()*50; const y=Math.random()*50;
-        p.style.left=`${lettersContainer.offsetLeft + x}px`;
-        p.style.top=`${lettersContainer.offsetTop + y}px`;
-        document.body.appendChild(p);
-        setTimeout(()=>p.remove(),800);
-    }
-}
-
-// --- Mode Selector ---
-modeButtons.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        modeButtons.forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        mode=btn.dataset.mode;
-        if(mode==='classic'){time=60;}
-        if(mode==='timed'){time=30;}
-        if(mode==='endless'){time=9999;}
-        resetGame();
-    });
-});
 
 // --- Start ---
 loadDictionary();
 </script>
+
 </body>
 </html>
