@@ -1,251 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Word Blast - NeuroBoost</title>
-<style>
-body {
-  margin:0;
-  font-family:'Arial',sans-serif;
-  background: linear-gradient(to bottom, #a3d9ff, #ffffff);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-  color:#333;
-}
-header{text-align:center;padding:30px 20px 10px;}
-header h1{
-  font-size:2.8em;
-  color:#0077cc;
-}
-header p{font-size:1.2em;color:#555;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KempWATER - Refresh Your World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-.game-container{
-  background:#ffffff;
-  border-radius:20px;
-  padding:25px;
-  width:95%;
-  max-width:600px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
-  text-align:center;
-}
-h2{color:#0077cc;margin-bottom:15px;font-family:'Arial',sans-serif;}
+        body {
+            background: linear-gradient(to bottom, #a0eaff, #ffffff);
+            color: #034f84;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-#score,#level,#timer,#highscore{
-  font-size:1.1em;
-  margin:4px 0;
-}
+        header {
+            background-color: #00bfff;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
 
-#letters-container{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin:20px 0;
-}
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url('https://i.ibb.co/3vZKvZs/wave.png') repeat-x;
+            background-size: cover;
+            animation: wave 6s linear infinite;
+        }
 
-.letter-tile{
-  width:70px;
-  height:70px;
-  margin:5px;
-  display:flex;justify-content:center;align-items:center;
-  font-size:2em;
-  font-weight:bold;
-  background:#f0f0f0;
-  border-radius:50%;
-  cursor:pointer;
-  transition:0.3s;
-  user-select:none;
-  box-shadow:0 3px 5px rgba(0,0,0,0.2);
-}
-.letter-tile:hover{
-  transform:scale(1.1);
-  background:#cce5ff;
-}
-.letter-tile.selected{
-  background:#0077cc;
-  color:#fff;
-  transform:scale(1.2);
-}
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1000px; }
+        }
 
-#current-word{
-  font-size:1.5em;
-  padding:10px;width:80%;margin-bottom:10px;
-  border-radius:10px;border:none;text-align:center;
-  background-color:#f0f0f0;color:#333;
-}
-#submit-word{
-  padding:10px 25px;font-size:1.2em;margin-bottom:15px;
-  background:#0077cc;border:none;border-radius:12px;
-  cursor:pointer;transition:0.3s;color:#fff;
-}
-#submit-word:hover{background:#005fa3;}
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0;
+        }
 
-#found-words{
-  min-height:60px;margin-top:15px;color:#555;font-size:1.1em;
-  display:flex;flex-wrap:wrap;justify-content:center;
-}
+        nav a {
+            text-decoration: none;
+            color: #034f84;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
 
-.found-word{
-  background:#cce5ff;
-  margin:3px;
-  padding:5px 10px;
-  border-radius:12px;
-  font-weight:bold;
-  color:#0077cc;
-}
+        nav a:hover {
+            color: #00bfff;
+        }
 
-footer{text-align:center;padding:15px;font-size:0.9em;color:#555;}
+        main {
+            flex: 1;
+            padding: 50px 20px;
+            text-align: center;
+        }
 
-@media(max-width:500px){
-  .letter-tile{width:55px;height:55px;font-size:1.5em;}
-  #current-word{font-size:1.2em;}
-  #submit-word{font-size:1em;}
-}
-</style>
+        main h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #0077b6;
+        }
+
+        main p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background-color: #00bfff;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            background-color: #0077b6;
+        }
+
+        .bottles {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .bottle {
+            width: 150px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .info-section {
+            background-color: #e0f7ff;
+            padding: 50px 20px;
+            margin-top: 50px;
+            border-radius: 15px;
+        }
+
+        .info-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0077b6;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            text-align: left;
+            max-width: 700px;
+            margin: auto;
+            font-size: 1.2rem;
+        }
+
+        .info-section li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .info-section li::before {
+            content: "💧";
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            background-color: #00bfff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        KempWATER 💧
+    </header>
 
-<header>
-<h1>Word Blast</h1>
-<p>NeuroBoost — Fun Brain-Boosting Game!</p>
-</header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+    </nav>
 
-<div class="game-container">
-<h2>Level <span id="level">1</span></h2>
-<div id="score">Score: 0</div>
-<div id="highscore">High Score: 0</div>
-<div id="timer">Time: 60s</div>
+    <main>
+        <h1>Refresh Your World with KempWATER</h1>
+        <p>Discover the purest, freshest water sourced from natural springs. Taste the clarity, purity, and natural minerals in every bottle!</p>
+        <button class="cta-button" onclick="alert('Dive into refreshing KempWATER!')">Shop Now 💦</button>
 
-<div id="letters-container"></div>
+        <div class="bottles">
+            <img class="bottle" src="https://i.ibb.co/TL6S3PW/water-bottle.png" alt="KempWATER Bottle 1">
+            <img class="bottle" src="https://i.ibb.co/KLZP2JD/water-bottle2.png" alt="KempWATER Bottle 2">
+            <img class="bottle" src="https://i.ibb.co/Yb6kpD8/water-bottle3.png" alt="KempWATER Bottle 3">
+        </div>
 
-<input type="text" id="current-word" placeholder="Form a word..." readonly>
-<button id="submit-word">Submit</button>
+        <div class="info-section">
+            <h2>About KempWATER</h2>
+            <ul>
+                <li>Sourced from pristine natural springs deep in the mountains.</li>
+                <li>Contains natural minerals like calcium, magnesium, and potassium.</li>
+                <li>Purified using a 7-step filtration and UV process for maximum clarity.</li>
+                <li>Bottled at a cool 4°C for the freshest taste.</li>
+                <li>Eco-friendly packaging and sustainable water sourcing.</li>
+                <li>Each bottle is tested for purity and pH balance before leaving the facility.</li>
+            </ul>
 
-<div id="found-words"></div>
-</div>
+            <h2>Fun Facts About KempWATER</h2>
+            <ul>
+                <li>Our water travels less than 50 km from source to bottle.</li>
+                <li>The natural spring is over 500 meters underground.</li>
+                <li>Every bottle has a pH of ~7.2 for perfect balance.</li>
+                <li>KempWATER is naturally oxygenated for a refreshing taste.</li>
+                <li>Our bottles are 100% recyclable and BPA-free.</li>
+            </ul>
+        </div>
+    </main>
 
-<footer>&copy; 2025 NeuroBoost</footer>
-
-<script>
-// --- Game Variables ---
-const lettersContainer=document.getElementById('letters-container');
-const currentWordInput=document.getElementById('current-word');
-const submitButton=document.getElementById('submit-word');
-const foundWordsDiv=document.getElementById('found-words');
-const scoreDisplay=document.getElementById('score');
-const levelDisplay=document.getElementById('level');
-const timerDisplay=document.getElementById('timer');
-const highscoreDisplay=document.getElementById('highscore');
-
-let letters=[],currentWord='',foundWords=[],score=0,level=1,time=60;
-let dictionary=[],timerInterval=null;
-
-// Highscore
-let highscore=localStorage.getItem('wordblastHighscore')||0;
-highscoreDisplay.textContent=`High Score: ${highscore}`;
-
-// Load dictionary (small version first for testing)
-async function loadDictionary(){
-    timerDisplay.textContent='Loading dictionary...';
-    try{
-        const response=await fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt');
-        const text=await response.text();
-        dictionary=text.split('\n').map(w=>w.toUpperCase());
-        console.log('Dictionary loaded, words:', dictionary.length);
-        timerDisplay.textContent=`Time: ${time}s`;
-        startGame();
-    } catch(e){
-        alert('Failed to load dictionary.');
-        console.error(e);
-    }
-}
-
-// --- Game Functions ---
-function startGame(){generateLetters(); startTimer();}
-
-function startTimer(){
-    clearInterval(timerInterval);
-    timerInterval=setInterval(()=>{
-        time--;
-        timerDisplay.textContent=`Time: ${time}s`;
-        if(time<=0){clearInterval(timerInterval); gameOver();}
-    },1000);
-}
-
-function gameOver(){
-    alert(`Time's up! Score: ${score}`);
-    if(score>highscore){localStorage.setItem('wordblastHighscore',score);}
-    resetGame();
-}
-
-const letterPool="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-function generateLetters(){
-    lettersContainer.innerHTML=''; letters=[];
-    for(let i=0;i<12+level;i++){
-        let letter=letterPool[Math.floor(Math.random()*letterPool.length)];
-        letters.push(letter);
-        const tile=document.createElement('div');
-        tile.classList.add('letter-tile');
-        tile.textContent=letter;
-        tile.addEventListener('click',()=>selectLetter(letter,tile));
-        lettersContainer.appendChild(tile);
-    }
-}
-
-function selectLetter(letter,tile){
-    currentWord+=letter;
-    currentWordInput.value=currentWord;
-    tile.classList.add('selected');
-    tile.style.pointerEvents='none';
-}
-
-function validateWord(word){
-    return dictionary.includes(word.toUpperCase());
-}
-
-submitButton.addEventListener('click',()=>{
-    if(currentWord.length<2)return;
-    if(!validateWord(currentWord)){
-        currentWordInput.style.backgroundColor='#ffcccc';
-        setTimeout(()=>currentWordInput.style.backgroundColor='#f0f0f0',300);
-        resetCurrentWord();
-        return;
-    }
-    foundWords.push(currentWord.toUpperCase());
-    const wordSpan=document.createElement('span');
-    wordSpan.textContent=currentWord.toUpperCase();
-    wordSpan.classList.add('found-word');
-    foundWordsDiv.appendChild(wordSpan);
-
-    score += currentWord.length*10;
-    scoreDisplay.textContent=`Score: ${score}`;
-    resetCurrentWord();
-    generateLetters();
-    if(foundWords.length%5===0){level++; levelDisplay.textContent=level;}
-    if(score>highscore){highscore=score; highscoreDisplay.textContent=`High Score: ${highscore}`;}
-});
-
-function resetCurrentWord(){
-    currentWord=''; currentWordInput.value='';
-    document.querySelectorAll('.letter-tile').forEach(tile=>{
-        tile.classList.remove('selected');
-        tile.style.pointerEvents='auto';
-    });
-}
-
-function resetGame(){
-    score=0; level=1; time=60; foundWords=[];
-    scoreDisplay.textContent=`Score: ${score}`;
-    levelDisplay.textContent=`Level: ${level}`;
-    foundWordsDiv.innerHTML='';
-    generateLetters(); startTimer();
-}
-
-// --- Start ---
-loadDictionary();
-</script>
-
+    <footer>
+        &copy; 2025 KempWATER. Pure, Fun, Refreshing.
+    </footer>
 </body>
 </html>
